@@ -1,4 +1,14 @@
-const Table = ({ columns, data }) => {
+type Column = {
+  key: string;
+  header: string;
+};
+
+type TableProps = {
+  columns: Column[];
+  data: Record<string, string | number>[];
+};
+
+const Table: React.FC<TableProps> = ({ columns, data }) => {
   return (
     <table className="min-w-full font-inter">
       <thead className="bg-[#F9FAFB] border-b border-b-[#EAECF0]">

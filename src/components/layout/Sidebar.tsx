@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -8,7 +9,10 @@ import {
   BarChart3,
   Settings,
   LogOut,
+  Users,
 } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+
 
 const Sidebar = () => {
   const sidebarItems = [
@@ -28,15 +32,15 @@ const Sidebar = () => {
     { icon: Receipt, label: "Expenses", href: "/expenses", active: false },
     { icon: CreditCard, label: "Payments", href: "/payments", active: false },
     { icon: BarChart3, label: "Reports", href: "/reports", active: false },
+    { icon: Users, label: "Members", href: "/members", active: false }, // 👈 added
     { icon: Settings, label: "Settings", href: "/settings", active: false },
     { icon: LogOut, label: "Logout", href: "/logout", active: false },
-    // { icon: Plus, label: "Add Expense", href: "/add-expense", active: false },
-    // { icon: Receipt, label: "Expenses", href: "/expenses", active: false },
-    // { icon: CreditCard, label: "Payments", href: "/payments", active: false },
-    // { icon: BarChart3, label: "Reports", href: "/reports", active: false },
-    // { icon: Settings, label: "Settings", href: "/settings", active: false },
-    // { icon: LogOut, label: "Logout", href: "/logout", active: false },
   ];
+
+
+  const pathName = usePathname();
+
+  console.log("Current Path:", pathName);
 
   return (
     <div className="w-85 h-screen bg-[#343A40] pl-9 pr-11 py-12 overflow-y-auto">
@@ -47,7 +51,7 @@ const Sidebar = () => {
         <div
           key={item.href}
           className={`flex items-center gap-3 py-3 px-4 mb-6 ${
-            item.active
+            pathName === item.href
               ? "text-[#343A40] bg-white rounded-[10px]"
               : "text-white"
           } `}
