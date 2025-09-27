@@ -16,7 +16,7 @@ const Table = ({ columns, data }) => {
       <tbody className="divide-y divide-gray-200">
         {data.map((row) => (
           <tr className="hover:bg-gray-50">
-            {columns.map((col, index:number) => (
+            {columns.map((col, index: number) => (
               <td key={index} className="px-6 py-3 text-sm text-gray-800">
                 {col.key === "actions" ? (
                   <div>
@@ -32,17 +32,6 @@ const Table = ({ columns, data }) => {
                 )}
               </td>
             ))}
-
-            {/* <td className="px-6 py-3 text-sm text-gray-800">Sajid</td>
-            <td className="px-6 py-3 text-sm text-gray-800">22</td>
-             <td className="px-6 py-3 text-sm">
-               <button className="px-3 py-1 text-white bg-blue-500 rounded-lg hover:bg-blue-600">
-                Edit
-              </button>
-           <button className="px-3 py-1 ml-2 text-white bg-red-500 rounded-lg hover:bg-red-600">
-                 Delete
-               </button>
-             </td> */}
           </tr>
         ))}
       </tbody>

@@ -9,7 +9,7 @@ const Page = () => {
     { header: "Action", key: "actions" },
   ];
 
-   const users = [
+  const users = [
     { id: 1, name: "Sajid", age: 22 },
     { id: 2, name: "Anas", age: 24 },
     { id: 3, name: "Rafiq", age: 28 },
