@@ -14,6 +14,7 @@ import {
 import { Plus } from "lucide-react";
 import Table from "@/components/layout/Table";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Page = () => {
   const columns = [
@@ -30,6 +31,11 @@ const Page = () => {
   ];
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    // resolver: zodResolver(userSchema),
+    defaultValues: { name: "xyz", email: "", age: undefined, password: "", confirmPassword: "" }
+  });
 
   return (
     <>
@@ -60,8 +66,9 @@ const Page = () => {
                   </label>
                   <input
                     className="border border-[#D0D5DD] focus:outline-0 px-3.5 py-2 rounded-lg"
-                    name="name"
+                    // name="name"
                     type="text"
+                    {...register("name")}
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
