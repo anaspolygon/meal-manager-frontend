@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import Sidebar from "@/components/layout/Sidebar";
+import { Providers } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,11 +36,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} antialiased`}
       >
-        <NextTopLoader height={3} easing="ease" speed={300}  showSpinner={true} />
-        <div className="flex ">
-          <Sidebar />
-          <div className="flex-1 p-9">{children}</div>
-        </div>
+        <NextTopLoader
+          height={3}
+          easing="ease"
+          speed={300}
+          showSpinner={true}
+        />
+        <Providers>
+          <div className="flex ">
+            <Sidebar />
+            <div className="flex-1 p-9">{children}</div>
+          </div>
+        </Providers>
       </body>
     </html>
   );
