@@ -53,8 +53,8 @@ const StatsSection = ({ title }: Stat) => {
         <h2 className="text-[28px] font-inter font-medium">{title}</h2>
       </div>
       <div className="flex gap-5">
-        {memberStats.map((stat) => (
-          <MetricCard {...stat} />
+        {memberStats.map((stat,index) => (
+          <MetricCard key={index} {...stat} />
         ))}
       </div>
     </div>
