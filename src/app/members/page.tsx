@@ -6,10 +6,14 @@ import {
   ModalBody,
   ModalFooter,
   Button,
+  DatePicker,
+  Select,
+  SelectItem,
   useDisclosure,
 } from "@heroui/react";
 import { Plus } from "lucide-react";
 import Table from "@/components/layout/Table";
+import { useState } from "react";
 
 const Page = () => {
   const columns = [
@@ -24,7 +28,9 @@ const Page = () => {
     { id: 2, name: "Anas", age: 24 },
     { id: 3, name: "Rafiq", age: 28 },
   ];
+
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   return (
     <>
       <div className="flex items-center justify-between mb-6">
@@ -33,7 +39,7 @@ const Page = () => {
           className="bg-[#343A40] text-white text-base font-inter font-medium rounded-[10px]"
           onPress={onOpen}
         >
-           <Plus  size={18} />
+          <Plus size={18} />
           Add Member
         </Button>
       </div>
@@ -41,34 +47,67 @@ const Page = () => {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">
-                Modal Title
+              <ModalHeader className="flex flex-col gap-1 font-inter font-medium text-lg">
+                Add Member
               </ModalHeader>
               <ModalBody>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat
-                  consequat elit dolor adipisicing. Mollit dolor eiusmod sunt ex
-                  incididunt cillum quis. Velit duis sit officia eiusmod Lorem
-                  aliqua enim laboris do dolor eiusmod. Et mollit incididunt
-                  nisi consectetur esse laborum eiusmod pariatur proident Lorem
-                  eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    className="text-sm text-[#344054] font-inter font-medium"
+                    htmlFor=""
+                  >
+                    First name
+                  </label>
+                  <input
+                    className="border border-[#D0D5DD] focus:outline-0 px-3.5 py-2 rounded-lg"
+                    name="name"
+                    type="text"
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    className="text-sm text-[#344054] font-inter font-medium"
+                    htmlFor=""
+                  >
+                    Last name
+                  </label>
+                  <input
+                    className="border border-[#D0D5DD] focus:outline-0 px-3.5 py-2 rounded-lg"
+                    name="name"
+                    type="text"
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    className="text-sm text-[#344054] font-inter font-medium"
+                    htmlFor=""
+                  >
+                    Mobile
+                  </label>
+                  <input
+                    className="border border-[#D0D5DD] focus:outline-0 px-3.5 py-2 rounded-lg"
+                    name="mobile"
+                    type="number"
+                    min={0}
+                  />
+                </div>
+
+                <DatePicker />
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button
+                  className="flex-1 text-base font-inter font-medium"
+                  color="danger"
+                  variant="light"
+                  onPress={onClose}
+                >
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button
+                  className="flex-1 bg-[#343A40] text-white text-base font-inter font-medium rounded-[10px"
+                  color="primary"
+                  onPress={onClose}
+                >
                   Action
                 </Button>
               </ModalFooter>
