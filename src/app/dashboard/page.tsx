@@ -3,6 +3,7 @@ import Table from "@/components/layout/Table";
 import StatsSection from "./StatsSection";
 import { Button } from "@nextui-org/react";
 
+
 const Page = () => {
   const columns = [
     { header: "ID", key: "id" },
@@ -20,8 +21,9 @@ const Page = () => {
     <div>
       <StatsSection title="Dashboard (Polygon, March 2025)" />
       <StatsSection title="Personal Info" />
+
       <Table columns={columns} data={users} />
-            <Button color="primary" variant="shadow">
+      <Button color="primary" variant="shadow">
         Click Me
       </Button>
     </div>

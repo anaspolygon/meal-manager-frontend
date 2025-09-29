@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
-import "./globals.css";
-import Sidebar from "@/components/layout/Sidebar";
 import { Providers } from "./providers";
+import AdminLayout from "./AdminLayout";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,10 +43,7 @@ export default function RootLayout({
           showSpinner={true}
         />
         <Providers>
-          <div className="flex ">
-            <Sidebar />
-            <div className="flex-1 p-9">{children}</div>
-          </div>
+          <AdminLayout>{children}</AdminLayout>
         </Providers>
       </body>
     </html>

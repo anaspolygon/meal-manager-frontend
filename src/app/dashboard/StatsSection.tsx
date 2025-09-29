@@ -1,5 +1,5 @@
 "use client";
-
+import { Select, SelectItem } from "@heroui/react";
 import MetricCard from "./MetricCard";
 interface Stat {
   title: string;
@@ -49,11 +49,20 @@ const StatsSection = ({ title }: Stat) => {
   ];
   return (
     <div className="mb-10">
-      <div className="mb-6">
+      <div className="flex items-center justify-between mb-6">
         <h2 className="text-[28px] font-inter font-medium">{title}</h2>
+        <Select
+          className="w-30 h-12"
+          defaultSelectedKeys={["dog"]}
+          isClearable={true}
+        >
+          {animals.map((animal) => (
+            <SelectItem key={animal.key}>{animal.label}</SelectItem>
+          ))}
+        </Select>
       </div>
       <div className="flex gap-5">
-        {memberStats.map((stat,index) => (
+        {memberStats.map((stat, index) => (
           <MetricCard key={index} {...stat} />
         ))}
       </div>
