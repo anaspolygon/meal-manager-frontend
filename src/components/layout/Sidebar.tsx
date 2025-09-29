@@ -11,10 +11,10 @@ import {
   LogOut,
   Users,
 } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-
+import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
+  const pathName = usePathname();
   const sidebarItems = [
     {
       icon: LayoutDashboard,
@@ -37,13 +37,8 @@ const Sidebar = () => {
     { icon: LogOut, label: "Logout", href: "/logout", active: false },
   ];
 
-
-  const pathName = usePathname();
-
-  console.log("Current Path:", pathName);
-
   return (
-    <div className="w-85 h-screen bg-[#343A40] pl-9 pr-11 py-12 overflow-y-auto">
+    <div className="w-90 h-screen bg-[#343A40] pl-9 pr-11 py-12 overflow-y-auto">
       <h2 className="text-[36px] text-white font-inter font-bold mb-9">
         Mess Manager
       </h2>

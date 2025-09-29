@@ -24,8 +24,8 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
-        {data.map((row) => (
-          <tr className="hover:bg-gray-50">
+        {data.map((row, index) => (
+          <tr key={index} className="hover:bg-gray-50">
             {columns.map((col, index: number) => (
               <td key={index} className="px-6 py-3 text-sm text-gray-800">
                 {col.key === "actions" ? (

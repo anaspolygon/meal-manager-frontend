@@ -115,7 +115,7 @@ const Page = () => {
                   color="primary"
                   onPress={onClose}
                 >
-                  Action
+                  Submit
                 </Button>
               </ModalFooter>
             </>
