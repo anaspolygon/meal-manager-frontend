@@ -10,6 +10,8 @@ import {
   Select,
   SelectItem,
   useDisclosure,
+  RadioGroup,
+  Radio,
 } from "@heroui/react";
 import { Plus } from "lucide-react";
 import Table from "@/components/layout/Table";
@@ -32,9 +34,19 @@ const Page = () => {
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
     // resolver: zodResolver(userSchema),
-    defaultValues: { name: "xyz", email: "", age: undefined, password: "", confirmPassword: "" }
+    defaultValues: {
+      name: "xyz",
+      email: "",
+      age: undefined,
+      password: "",
+      confirmPassword: "",
+    },
   });
 
   return (
@@ -98,6 +110,11 @@ const Page = () => {
                     min={0}
                   />
                 </div>
+
+                <RadioGroup label="Select your favorite city">
+                  <Radio value="male">Male</Radio>
+                  <Radio value="female">Female</Radio>
+                </RadioGroup>
 
                 <DatePicker />
               </ModalBody>
