@@ -54,7 +54,7 @@ const StatsSection = ({ title }: Stat) => {
         <Select
           className="w-30 h-12"
           defaultSelectedKeys={["dog"]}
-          isClearable={true}
+          // isClearable={true}
         >
           {animals.map((animal) => (
             <SelectItem key={animal.key}>{animal.label}</SelectItem>
