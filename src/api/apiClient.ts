@@ -18,7 +18,7 @@ class ApiClient {
       headers = {},
     }: {
       method?: string;
-      data?: unknown;
+      data?: object | null;
       headers?: Record<string, string>;
     } = {}
   ) {
@@ -26,5 +26,6 @@ class ApiClient {
     if (this.withAuth && this.token) {
       options.headers["Authorization"] = `Bearer ${this.token}`;
     }
+  
   }
 }
