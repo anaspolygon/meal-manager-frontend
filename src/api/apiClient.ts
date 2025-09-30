@@ -10,7 +10,18 @@ class ApiClient {
   setToken(token: string) {
     this.token = token;
   }
-  async request(endpoint = "", { method = "GET", data = null, headers = {} }) {
+  async request(
+    endpoint = "",
+    {
+      method = "GET",
+      data = null,
+      headers = {},
+    }: {
+      method?: string;
+      data?: unknown;
+      headers?: Record<string, string>;
+    } = {}
+  ) {
     const options = { method, headers: { ...headers } };
     if (this.withAuth && this.token) {
       options.headers["Authorization"] = `Bearer ${this.token}`;
