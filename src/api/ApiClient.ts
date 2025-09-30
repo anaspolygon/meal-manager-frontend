@@ -1,3 +1,5 @@
+import { buildOptions } from "./RequestBuilder";
+
 class ApiClient {
   baseUrl: string;
   withAuth: boolean;
@@ -22,22 +24,15 @@ class ApiClient {
       headers?: Record<string, string>;
     }
   ) {
-    const options: RequestInit = { method, headers: { ...headers } };
-    if (this.withAuth && this.token) {
-      (options.headers as Record<string, string>)[
-        "Authorization"
-      ] = `Bearer ${this.token}`;
-    }
-    if (data) {
-      if (data instanceof FormData) {
-        options.body = data;
-      } else {
-        (options.headers as Record<string, string>)["Content-Type"] =
-          "application/json";
-        options.body = JSON.stringify(data);
-      }
-    }
-    const res = await fetch(`${this.baseUrl}/${endpoint}`, options);
+    const url = `${this.baseUrl}/${endpoint}`;
+    const options = buildOptions(
+      method,
+      headers,
+      data,
+      this.token,
+      this.withAuth
+    );
+    const res = await fetch(url, options);
     try {
       if (!res.ok) {
         throw new Error(`HTTP error! Status: ${res.status}`);
