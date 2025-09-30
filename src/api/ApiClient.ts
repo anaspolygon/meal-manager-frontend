@@ -64,3 +64,6 @@ class ApiClient {
     return this.request(endpoint, { method: "DELETE" });
   }
 }
+
+
+export const primary = new ApiClient("")
