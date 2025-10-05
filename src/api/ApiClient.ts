@@ -66,4 +66,5 @@ class ApiClient {
 }
 
 
-export const primary = new ApiClient("")
+export const auth = new ApiClient("",true)
+auth.setToken("fasfasf")
