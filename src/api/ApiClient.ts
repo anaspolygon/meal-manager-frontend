@@ -66,5 +66,5 @@ class ApiClient {
 }
 
 
-export const auth = new ApiClient("",true)
+export const auth = new ApiClient("http://",true)
 auth.setToken("fasfasf")
