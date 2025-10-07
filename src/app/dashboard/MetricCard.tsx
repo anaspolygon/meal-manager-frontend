@@ -1,3 +1,5 @@
+import { auth } from "@/api/ApiClient";
+
 interface MatricCardProps {
   title: string;
   value: string;
@@ -5,6 +7,8 @@ interface MatricCardProps {
   textColor: string;
 }
 const MatricCard = ({ title, value, bgColor, textColor }: MatricCardProps) => {
+  // const res = await auth.get("users");
+  // console.log(res,"============================");
   return (
     <div
       className={`font-inter ${bgColor} ${textColor} p-6 rounded-[10px] flex-1`}

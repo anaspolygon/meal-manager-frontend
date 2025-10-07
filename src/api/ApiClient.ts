@@ -24,7 +24,8 @@ class ApiClient {
       headers?: Record<string, string>;
     }
   ) {
-    const url = `${this.baseUrl}/${endpoint}`;
+    const url = `${this.baseUrl}${endpoint}`;
+    // console.log("Request URL:", url);
     const options = buildOptions(
       method,
       headers,
@@ -40,7 +41,8 @@ class ApiClient {
       return res.status === 204 ? null : await res.json();
     } catch (error) {
       if (error instanceof Error) {
-        console.error("API Error:", error.message);
+        console.log(error.message);
+        return error.message;
       } else {
         console.error("API Error:", error);
       }
@@ -66,5 +68,5 @@ class ApiClient {
 }
 
 
-export const auth = new ApiClient("http://",true)
+export const auth = new ApiClient("http://localhost:3000/api",false)
 auth.setToken("fasfasf")
