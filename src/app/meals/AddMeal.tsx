@@ -11,11 +11,39 @@ import {
   RadioGroup,
   Radio,
 } from "@heroui/react";
+import AddMealField from "./AddMealField";
+import { useState } from "react";
 interface AddMealProps {
   isOpen: boolean;
   onOpenChange: () => void;
 }
 const AddMeal = ({ isOpen, onOpenChange }: AddMealProps) => {
+  const [breakfast, setBreakfast] = useState(0);
+  const [lunch, setLunch] = useState(1);
+  const [dinner, setDinner] = useState(2);
+  const handleIncrement = (mealType: string) => {
+    if (mealType === "breakfast") {
+      setBreakfast(breakfast + 1);
+    }
+    if (mealType === "lunch") {
+      setLunch(lunch + 1);
+    }
+    if (mealType === "dinner") {
+      setDinner(dinner + 1);
+    }
+  };
+  const handleDecrement = (mealType: string) => {
+    if (mealType === "breakfast" && breakfast > 0) {
+      setBreakfast(breakfast - 1);
+    }
+    if (mealType === "lunch" && lunch > 0) {
+      setLunch(lunch - 1);
+    }
+    if (mealType === "dinner" && dinner > 0) {
+      setDinner(dinner - 1);
+    }
+  };
+
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
@@ -24,7 +52,29 @@ const AddMeal = ({ isOpen, onOpenChange }: AddMealProps) => {
             <ModalHeader className="flex flex-col gap-1 font-inter font-medium text-lg">
               Add Meal Entry
             </ModalHeader>
-            <ModalBody></ModalBody>
+            <ModalBody>
+              <AddMealField
+                title="Breakfast"
+                mealType="breakfast"
+                value={breakfast}
+                handleIncrement={handleIncrement}
+                handleDecrement={handleDecrement}
+              />
+              <AddMealField
+                title="Lunch"
+                mealType="lunch"
+                value={lunch}
+                handleIncrement={handleIncrement}
+                handleDecrement={handleDecrement}
+              />
+              <AddMealField
+                title="Dinner"
+                mealType="dinner"
+                value={dinner}
+                handleIncrement={handleIncrement}
+                handleDecrement={handleDecrement}
+              />
+            </ModalBody>
             <ModalFooter>
               <Button
                 className="flex-1 text-base font-inter font-medium"
@@ -48,6 +98,5 @@ const AddMeal = ({ isOpen, onOpenChange }: AddMealProps) => {
     </Modal>
   );
 };
-
 
 export default AddMeal;
