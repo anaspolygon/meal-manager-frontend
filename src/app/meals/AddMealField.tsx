@@ -1,4 +1,5 @@
 import { MinusIcon, PlusIcon } from "lucide-react";
+import { Autocomplete, AutocompleteItem } from "@heroui/react";
 
 interface AddMealFieldProps {
   title: string;
@@ -20,6 +21,7 @@ const AddMealField = ({
       <h2 className="font-inter font-medium text-base text-[#344054] mb-4">
         {title}
       </h2>
+
       <div className="flex items-center gap-4">
         <button
           onClick={() => handleDecrement(mealType)}

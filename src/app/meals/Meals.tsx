@@ -12,7 +12,7 @@ const Meals = () => {
         onPress={onOpen}
       >
         <Plus size={18} />
-        Add Member
+        Add Meal Entry
       </Button>
       <AddMeal isOpen={isOpen} onOpenChange={onOpenChange} />
     </div>
