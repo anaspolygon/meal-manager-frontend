@@ -28,7 +28,7 @@ const AddMealField = ({
           <MinusIcon color="white" />
         </button>
         <input
-          className="font-inter flex-1 py-2.5 px-3.5 bg-[#F3F3F5] border border-[#D0D5DD] rounded-lg focus:outline-0"
+          className="font-inter flex-1 py-2.5 px-3.5 bg-[#F3F3F5] border border-[#D0D5DD] rounded-lg focus:outline-0 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-outer-spin-button]:m-0"
           type="number"
           min={0}
           value={value}
