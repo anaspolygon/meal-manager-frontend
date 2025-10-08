@@ -25,7 +25,7 @@ const Sidebar = () => {
     {
       icon: UtensilsCrossed,
       label: "Add Meal",
-      href: "/add-meal",
+      href: "/meals",
       active: false,
     },
     { icon: Plus, label: "Add Expense", href: "/add-expense", active: false },
