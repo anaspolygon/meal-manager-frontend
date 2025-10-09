@@ -13,6 +13,7 @@ import {
 } from "@heroui/react";
 import AddMealField from "./AddMealField";
 import { useState } from "react";
+import { Select } from "antd";
 interface AddMealProps {
   isOpen: boolean;
   onOpenChange: () => void;
@@ -44,6 +45,28 @@ const AddMeal = ({ isOpen, onOpenChange }: AddMealProps) => {
     }
   };
 
+  const options = [
+    {
+      value: "jack",
+      label: "Jack",
+    },
+    {
+      value: "lucy",
+      label: "Lucy",
+    },
+    {
+      value: "tom",
+      label: "Tom",
+    },
+  ];
+  const onChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
+  const onSearch = (value: string) => {
+    console.log("search:", value);
+  };
+
   return (
     <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
@@ -53,6 +76,18 @@ const AddMeal = ({ isOpen, onOpenChange }: AddMealProps) => {
               Add Meal Entry
             </ModalHeader>
             <ModalBody>
+              <div onClick={(e) => e.stopPropagation()}>
+                <Select
+                  showSearch
+                  className="w-full !h-10 "
+                  placeholder="Select a person"
+                  optionFilterProp="label"
+                  onChange={onChange}
+                  onSearch={onSearch}
+                  options={options}
+                  getPopupContainer={(triggerNode) => triggerNode.parentNode}
+                />
+              </div>
               <AddMealField
                 title="Breakfast"
                 mealType="breakfast"
