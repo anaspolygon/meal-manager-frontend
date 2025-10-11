@@ -15,6 +15,7 @@ import AddMealField from "./AddMealField";
 import { useState } from "react";
 import { Select } from "antd";
 import toast from "react-hot-toast";
+import { Oval } from "react-loader-spinner";
 import { createMeal } from "./actions/create-meal";
 
 interface User {
@@ -34,6 +35,7 @@ const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
   const [lunch, setLunch] = useState(0);
   const [dinner, setDinner] = useState(0);
   const [userId, setUserId] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
   const handleIncrement = (mealType: string) => {
     if (mealType === "breakfast") {
       setBreakfast(breakfast + 1);
@@ -61,12 +63,20 @@ const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
     setUserId(value);
   };
 
+  const resetAll = () => {
+    setBreakfast(0);
+    setLunch(0);
+    setDinner(0);
+    setUserId(null);
+  };
+
   const handleSubmit = async () => {
     if (!userId) {
       console.log("hello");
       toast.error("Please select a user");
       return;
     }
+    setLoading(true);
     const payload = {
       breakfast_count: breakfast,
       lunch_count: lunch,
@@ -76,12 +86,21 @@ const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
     };
     const res = await createMeal(payload);
     if (res) {
+      console.log(res);
       toast.success("Meal entry created successfully");
+      resetAll();
+      setLoading(false);
     }
   };
 
   return (
-    <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal
+      isOpen={isOpen}
+      onOpenChange={() => {
+        onOpenChange();
+        resetAll();
+      }}
+    >
       <ModalContent>
         {(onClose) => (
           <>
@@ -138,8 +157,13 @@ const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
                 className="flex-1 bg-[#343A40] text-white text-base font-inter font-medium rounded-[10px"
                 color="primary"
                 onPress={handleSubmit}
+                disabled={loading}
               >
-                Submit
+                {loading ? (
+                  <Oval color="white" width={16} height={16} strokeWidth={3} />
+                ) : (
+                  "Submit"
+                )}
               </Button>
             </ModalFooter>
           </>
