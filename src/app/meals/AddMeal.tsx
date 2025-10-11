@@ -14,6 +14,8 @@ import {
 import AddMealField from "./AddMealField";
 import { useState } from "react";
 import { Select } from "antd";
+import toast from "react-hot-toast";
+import { createMeal } from "./actions/create-meal";
 
 interface User {
   id: string;
@@ -29,8 +31,9 @@ interface AddMealProps {
 
 const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
   const [breakfast, setBreakfast] = useState(0);
-  const [lunch, setLunch] = useState(1);
-  const [dinner, setDinner] = useState(2);
+  const [lunch, setLunch] = useState(0);
+  const [dinner, setDinner] = useState(0);
+  const [userId, setUserId] = useState<number | null>(null);
   const handleIncrement = (mealType: string) => {
     if (mealType === "breakfast") {
       setBreakfast(breakfast + 1);
@@ -54,12 +57,27 @@ const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
     }
   };
 
-  const onChange = (value: string) => {
-    console.log(`selected ${value}`);
+  const onChange = (value: number) => {
+    setUserId(value);
   };
 
-  const onSearch = (value: string) => {
-    console.log("search:", value);
+  const handleSubmit = async () => {
+    if (!userId) {
+      console.log("hello");
+      toast.error("Please select a user");
+      return;
+    }
+    const payload = {
+      breakfast_count: breakfast,
+      lunch_count: lunch,
+      dinner_count: dinner,
+      total: breakfast + lunch + dinner,
+      userId: userId,
+    };
+    const res = await createMeal(payload);
+    if (res) {
+      toast.success("Meal entry created successfully");
+    }
   };
 
   return (
@@ -78,7 +96,6 @@ const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
                   placeholder="Select a member"
                   optionFilterProp="label"
                   onChange={onChange}
-                  onSearch={onSearch}
                   options={users.map((user) => ({
                     label: user.name,
                     value: user.id,
@@ -120,7 +137,7 @@ const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
               <Button
                 className="flex-1 bg-[#343A40] text-white text-base font-inter font-medium rounded-[10px"
                 color="primary"
-                onPress={onClose}
+                onPress={handleSubmit}
               >
                 Submit
               </Button>

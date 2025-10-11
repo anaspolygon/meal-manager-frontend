@@ -4,6 +4,7 @@ import NextTopLoader from "nextjs-toploader";
 import { Providers } from "./providers";
 import AdminLayout from "./AdminLayout";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default function RootLayout({
           speed={300}
           showSpinner={true}
         />
+        <Toaster/>
         <Providers>
           <AdminLayout>{children}</AdminLayout>
         </Providers>
