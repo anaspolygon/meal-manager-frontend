@@ -14,7 +14,7 @@ interface MealsProps {
 }
 
 const Meals = ({ users }: MealsProps) => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange ,onClose } = useDisclosure();
   return (
     <div>
       <Button
@@ -24,7 +24,7 @@ const Meals = ({ users }: MealsProps) => {
         <Plus size={18} />
         Add Meal Entry
       </Button>
-      <AddMeal isOpen={isOpen} users={users} onOpenChange={onOpenChange} />
+      <AddMeal isOpen={isOpen} users={users} onClose={onClose} onOpenChange={onOpenChange} />
     </div>
   );
 };

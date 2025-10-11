@@ -34,14 +34,19 @@ class ApiClient {
       this.withAuth
     );
     const res = await fetch(url, options);
+    console.log(url,options)
     try {
       if (!res.ok) {
+        console.log(res,"-------------------->")
         throw new Error(`HTTP error! Status: ${res.status}`);
       }
-      return res.status === 204 ? null : await res.json();
+      else{
+
+        return res.status === 204 ? null : await res.json();
+      }
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message);
+        console.log(error,error.message);
         return error.message;
       } else {
         console.error("API Error:", error);

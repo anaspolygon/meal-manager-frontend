@@ -27,10 +27,11 @@ interface User {
 interface AddMealProps {
   isOpen: boolean;
   users: User[];
+  onClose: () => void;
   onOpenChange: () => void;
 }
 
-const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
+const AddMeal = ({ isOpen, users, onClose, onOpenChange }: AddMealProps) => {
   const [breakfast, setBreakfast] = useState(0);
   const [lunch, setLunch] = useState(0);
   const [dinner, setDinner] = useState(0);
@@ -72,7 +73,6 @@ const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
 
   const handleSubmit = async () => {
     if (!userId) {
-      console.log("hello");
       toast.error("Please select a user");
       return;
     }
@@ -90,6 +90,7 @@ const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
       toast.success("Meal entry created successfully");
       resetAll();
       setLoading(false);
+      onClose();
     }
   };
 
@@ -111,6 +112,7 @@ const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
               <div onClick={(e) => e.stopPropagation()}>
                 <Select
                   showSearch
+                  defaultValue={null}
                   className="w-full !h-10 "
                   placeholder="Select a member"
                   optionFilterProp="label"

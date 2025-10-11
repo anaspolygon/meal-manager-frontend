@@ -10,6 +10,6 @@ interface Payload {
   userId: number;
 }
 export const createMeal = async(payload: Payload) => {
-  const res = await auth.post("/create-meals", payload);
+  const res = await auth.post("/user-meals", payload);
   return res;
 };
