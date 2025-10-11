@@ -14,11 +14,20 @@ import {
 import AddMealField from "./AddMealField";
 import { useState } from "react";
 import { Select } from "antd";
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
 interface AddMealProps {
   isOpen: boolean;
+  users: User[];
   onOpenChange: () => void;
 }
-const AddMeal = ({ isOpen, onOpenChange }: AddMealProps) => {
+
+const AddMeal = ({ isOpen, users, onOpenChange }: AddMealProps) => {
   const [breakfast, setBreakfast] = useState(0);
   const [lunch, setLunch] = useState(1);
   const [dinner, setDinner] = useState(2);
@@ -45,20 +54,6 @@ const AddMeal = ({ isOpen, onOpenChange }: AddMealProps) => {
     }
   };
 
-  const options = [
-    {
-      value: "jack",
-      label: "Jack",
-    },
-    {
-      value: "lucy",
-      label: "Lucy",
-    },
-    {
-      value: "tom",
-      label: "Tom",
-    },
-  ];
   const onChange = (value: string) => {
     console.log(`selected ${value}`);
   };
@@ -80,11 +75,14 @@ const AddMeal = ({ isOpen, onOpenChange }: AddMealProps) => {
                 <Select
                   showSearch
                   className="w-full !h-10 "
-                  placeholder="Select a person"
+                  placeholder="Select a member"
                   optionFilterProp="label"
                   onChange={onChange}
                   onSearch={onSearch}
-                  options={options}
+                  options={users.map((user) => ({
+                    label: user.name,
+                    value: user.id,
+                  }))}
                   getPopupContainer={(triggerNode) => triggerNode.parentNode}
                 />
               </div>

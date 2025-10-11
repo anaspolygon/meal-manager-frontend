@@ -3,7 +3,17 @@ import { Button, useDisclosure } from "@heroui/react";
 import { Plus } from "lucide-react";
 import AddMeal from "./AddMeal";
 
-const Meals = () => {
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+interface MealsProps {
+  users: User[];
+}
+
+const Meals = ({ users }: MealsProps) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <div>
@@ -14,7 +24,7 @@ const Meals = () => {
         <Plus size={18} />
         Add Meal Entry
       </Button>
-      <AddMeal isOpen={isOpen} onOpenChange={onOpenChange} />
+      <AddMeal isOpen={isOpen} users={users} onOpenChange={onOpenChange} />
     </div>
   );
 };
