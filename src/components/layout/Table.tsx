@@ -5,7 +5,7 @@ type Column = {
 
 type TableProps = {
   columns: Column[];
-  data: Record<string, string | number>[];
+  data: Record<string, any>[];
 };
 
 const Table: React.FC<TableProps> = ({ columns, data }) => {
@@ -24,6 +24,13 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
+        {data.length === 0 && (
+          <tr className="text-sm text-gray-800  text-center">
+            <td colSpan={columns.length} className="px-6 py-4 text-sm text-gray-800">
+              No data available.
+            </td>
+          </tr>
+        )}
         {(data ?? []).map((row, index) => (
           <tr key={index} className="hover:bg-gray-50">
             {columns.map((col, index: number) => (
