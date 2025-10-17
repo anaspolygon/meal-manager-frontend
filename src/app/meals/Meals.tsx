@@ -13,10 +13,10 @@ interface User {
 
 interface MealsProps {
   users: User[];
-  meals:MealEntry[];
+  meals: MealEntry[];
 }
 
-const Meals = ({ users ,meals}: MealsProps) => {
+const Meals = ({ users, meals }: MealsProps) => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const columns = [
     { header: "ID", key: "id" },
@@ -26,6 +26,8 @@ const Meals = ({ users ,meals}: MealsProps) => {
     { header: "Dinner", key: "dinner_count" },
     { header: "Total", key: "total" },
   ];
+
+  console.log("Meals data:", meals);
   return (
     <div>
       <Button
@@ -35,15 +37,15 @@ const Meals = ({ users ,meals}: MealsProps) => {
         <Plus size={18} />
         Add Meal Entry
       </Button>
-       <div className="mb-5">
-          <AddMeal
-        isOpen={isOpen}
-        users={users}
-        onClose={onClose}
-        onOpenChange={onOpenChange}
-      />
-       </div>
-       <Table columns={columns} data={meals} />
+      <div className="mb-5">
+        <AddMeal
+          isOpen={isOpen}
+          users={users}
+          onClose={onClose}
+          onOpenChange={onOpenChange}
+        />
+      </div>
+      <Table columns={columns} data={meals} />
     </div>
   );
 };

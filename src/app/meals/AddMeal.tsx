@@ -17,6 +17,7 @@ import { Select } from "antd";
 import toast from "react-hot-toast";
 import { Oval } from "react-loader-spinner";
 import { createMeal } from "./actions/create-meal";
+import { redirect } from "next/navigation";
 
 interface User {
   id: string;
@@ -85,12 +86,18 @@ const AddMeal = ({ isOpen, users, onClose, onOpenChange }: AddMealProps) => {
       userId: userId,
     };
     const res = await createMeal(payload);
-    if (res) {
+    if (res.ok) {
       console.log(res);
       toast.success("Meal entry created successfully");
       resetAll();
       setLoading(false);
       onClose();
+      redirect("/meals");
+    } else {
+      toast.error(res.message || "Failed to create meal entry",{ duration: 2000 });
+      setLoading(false);
+      onClose();
+      resetAll();
     }
   };
 

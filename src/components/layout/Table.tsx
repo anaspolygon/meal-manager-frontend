@@ -24,7 +24,7 @@ const Table: React.FC<TableProps> = ({ columns, data }) => {
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
-        {data.length === 0 && (
+        {(data ?? []).length === 0 && (
           <tr className="text-sm text-gray-800  text-center">
             <td colSpan={columns.length} className="px-6 py-4 text-sm text-gray-800">
               No data available.

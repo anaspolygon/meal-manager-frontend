@@ -34,19 +34,35 @@ class ApiClient {
       this.withAuth
     );
     const res = await fetch(url, options);
-    console.log(url,options)
+    console.log(url, options);
+    const contentType = res.headers.get("content-type");
+    const responseData =
+      contentType && contentType.includes("application/json")
+        ? await res.json()
+        : await res.text();
     try {
       if (!res.ok) {
-        console.log(res,"-------------------->")
+        // const err = await res.json();
+        console.log("Response not ok:", res.status);
+        return {
+          success: false,
+          status: res.status,
+          message: responseData?.message || "Request failed",
+          error: responseData,
+        };
         throw new Error(`HTTP error! Status: ${res.status}`);
-      }
-      else{
-
-        return res.status === 204 ? null : await res.json();
+      } else {
+        return res.status === 204
+          ? null
+          : {
+              success: true,
+              status: res.status,
+              data: responseData,
+            };
       }
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error,error.message);
+        console.log(error, error.message);
         return error.message;
       } else {
         console.error("API Error:", error);
@@ -72,6 +88,5 @@ class ApiClient {
   }
 }
 
-
-export const auth = new ApiClient("http://localhost:3000/api",false)
-auth.setToken("fasfasf")
+export const auth = new ApiClient("http://localhost:3000/api", false);
+auth.setToken("fasfasf");
