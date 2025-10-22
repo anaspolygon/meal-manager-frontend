@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { Oval } from "react-loader-spinner";
 import AddMeal from "../meals/AddMeal";
 import { addExpense } from "./actions/add-expense";
+import { redirect } from "next/navigation";
 
 interface User {
   id: string;
@@ -74,6 +75,7 @@ const AddExpense = ({ users }: AddExpenseProps) => {
       toast.success("Meal entry created successfully");
 
       setLoading(false);
+      redirect("/add-expense");
     } else {
       toast.error(res.message || "Failed to create meal entry", {
         duration: 2000,
