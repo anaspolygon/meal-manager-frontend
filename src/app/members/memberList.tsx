@@ -15,6 +15,11 @@ import { Plus } from "lucide-react";
 import Table from "@/components/layout/Table";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { auth } from "@/api/ApiClient";
+import { addMember } from "./actions/add-member";
+import { redirect } from "next/navigation";
+import { Oval } from "react-loader-spinner";
 
 interface MemberListProps {
   users: {
@@ -26,26 +31,46 @@ interface MemberListProps {
 const MemberList = ({ users }: MemberListProps) => {
   const columns = [
     { header: "ID", key: "id" },
+    { header: "Name", key: "name" },
     { header: "Email", key: "email" },
     { header: "Action", key: "actions" },
   ];
 
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, } = useDisclosure();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm({
-    // resolver: zodResolver(userSchema),
-    defaultValues: {
-      name: "xyz",
-      email: "",
-      age: undefined,
-      password: "",
-      confirmPassword: "",
-    },
-  });
+  const handleSubmit = async () => {
+    // Handle form submission logic here
+    if (!name || !email) {
+      toast.error("Please fill in all fields");
+      return;
+    }
+    setLoading(true);
+    const payload = {
+      name,
+      email,
+      password: "defaultPassword123", // Default password
+    };
+
+    const res = await addMember(payload);
+
+    if (res.ok) {
+      console.log(res);
+      toast.success("Meal entry created successfully");
+
+      setLoading(false);
+      onOpenChange()
+      redirect("/members");
+    } else {
+      toast.error(res.message || "Failed to create meal entry", {
+        duration: 2000,
+      });
+      onOpenChange()
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -74,26 +99,13 @@ const MemberList = ({ users }: MemberListProps) => {
                     className="text-sm text-[#344054] font-inter font-medium"
                     htmlFor=""
                   >
-                    First name
-                  </label>
-                  <input
-                    className="border border-[#D0D5DD] focus:outline-0 px-3.5 py-2 rounded-lg"
-                    // name="name"
-                    type="text"
-                    {...register("name")}
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label
-                    className="text-sm text-[#344054] font-inter font-medium"
-                    htmlFor=""
-                  >
-                    Last name
+                    Name
                   </label>
                   <input
                     className="border border-[#D0D5DD] focus:outline-0 px-3.5 py-2 rounded-lg"
                     name="name"
                     type="text"
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">
@@ -101,22 +113,15 @@ const MemberList = ({ users }: MemberListProps) => {
                     className="text-sm text-[#344054] font-inter font-medium"
                     htmlFor=""
                   >
-                    Mobile
+                    Email
                   </label>
                   <input
                     className="border border-[#D0D5DD] focus:outline-0 px-3.5 py-2 rounded-lg"
-                    name="mobile"
-                    type="number"
-                    min={0}
+                    name="email"
+                    type="email"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-
-                <RadioGroup label="Select your favorite city">
-                  <Radio value="male">Male</Radio>
-                  <Radio value="female">Female</Radio>
-                </RadioGroup>
-
-                <DatePicker />
               </ModalBody>
               <ModalFooter>
                 <Button
@@ -130,9 +135,18 @@ const MemberList = ({ users }: MemberListProps) => {
                 <Button
                   className="flex-1 bg-[#343A40] text-white text-base font-inter font-medium rounded-[10px"
                   color="primary"
-                  onPress={onClose}
+                  onPress={handleSubmit}
                 >
-                  Submit
+                  {loading ? (
+                    <Oval
+                      color="white"
+                      width={16}
+                      height={16}
+                      strokeWidth={3}
+                    />
+                  ) : (
+                    "Submit"
+                  )}
                 </Button>
               </ModalFooter>
             </>
